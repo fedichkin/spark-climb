@@ -1,6 +1,7 @@
 ## The hero: applies gravity, bounces automatically on every landing on a
 ## Platform and reports the landing quality via the `landed` signal.
-## Horizontal offset comes from the TouchInput child node.
+## Horizontal offset comes from the TouchInput child node; the hero wraps
+## around the screen edges when config.screen_wrap is on.
 class_name Player
 extends CharacterBody2D
 
@@ -25,8 +26,16 @@ func _physics_process(delta: float) -> void:
 	velocity.y += config.gravity * delta
 	velocity.x = _horizontal_velocity(delta)
 	move_and_slide()
+	if config.screen_wrap:
+		_wrap_horizontally()
 	if is_on_floor():
 		_bounce()
+
+
+## Moves the hero to the opposite side once its center leaves the screen.
+func _wrap_horizontally() -> void:
+	var screen_width: float = get_viewport().get_visible_rect().size.x
+	position.x = fposmod(position.x, screen_width)
 
 
 ## Converts this frame's input offset into velocity, capped by
