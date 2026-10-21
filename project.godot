@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="spark-climb"
-run/main_scene="uid://2ov3g3nklbx6"
+run/main_scene="res://sandbox/m1_jump_test.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
