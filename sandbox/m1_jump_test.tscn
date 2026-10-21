@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://ckyaja00mrlqy" path="res://sandbox/m1_jump_test.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://yphdmrg2ohjp" path="res://platforms/static_platform.tscn" id="2_static"]
+[ext_resource type="PackedScene" uid="uid://mkg0vx0q61u2" path="res://player/player.tscn" id="3_player"]
+
+[node name="M1JumpTest" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Color" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.09019608, 0.14901961, 1)
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Floor" parent="Platforms" instance=ExtResource("2_static")]
+position = Vector2(360, 1230)
+
+[node name="Platform1" parent="Platforms" instance=ExtResource("2_static")]
+position = Vector2(180, 1110)
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("2_static")]
+position = Vector2(470, 990)
+
+[node name="Platform3" parent="Platforms" instance=ExtResource("2_static")]
+position = Vector2(290, 870)
+
+[node name="Platform4" parent="Platforms" instance=ExtResource("2_static")]
+position = Vector2(560, 750)
+
+[node name="Platform5" parent="Platforms" instance=ExtResource("2_static")]
+position = Vector2(140, 640)
+
+[node name="Platform6" parent="Platforms" instance=ExtResource("2_static")]
+position = Vector2(400, 530)
+
+[node name="Platform7" parent="Platforms" instance=ExtResource("2_static")]
+position = Vector2(600, 420)
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(360, 1150)

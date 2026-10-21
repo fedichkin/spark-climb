@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bfc6hyhvs14jv" path="res://platforms/platform.gd" id="1_script"]
+[ext_resource type="Resource" path="res://config/game_config.tres" id="2_config"]
+
+[node name="Platform" type="AnimatableBody2D"]
+sync_to_physics = false
+script = ExtResource("1_script")
+config = ExtResource("2_config")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+one_way_collision = true
+
+[node name="Body" type="Polygon2D" parent="."]

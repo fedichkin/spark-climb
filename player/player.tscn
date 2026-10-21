@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://mkg0vx0q61u2"]
+
+[ext_resource type="Script" uid="uid://c7oischgxcjno" path="res://player/player.gd" id="1_script"]
+[ext_resource type="Resource" uid="uid://c1cgxidisq2dj" path="res://config/game_config.tres" id="2_config"]
+[ext_resource type="Script" uid="uid://begkfrhuextbt" path="res://player/touch_input.gd" id="3_touch"]
+
+[node name="Player" type="CharacterBody2D" unique_id=636313780]
+script = ExtResource("1_script")
+config = ExtResource("2_config")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=221488874]
+
+[node name="Body" type="Polygon2D" parent="." unique_id=1712114396]
+color = Color(1, 0.9137255, 0.65882355, 1)
+
+[node name="TouchInput" type="Node" parent="." unique_id=1314315207]
+script = ExtResource("3_touch")
+config = ExtResource("2_config")
