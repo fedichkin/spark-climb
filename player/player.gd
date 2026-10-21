@@ -1,6 +1,6 @@
 ## The hero: applies gravity, bounces automatically on every landing on a
 ## Platform and reports the landing quality via the `landed` signal.
-## Horizontal control and screen wrap are added on top of this.
+## Horizontal offset comes from the TouchInput child node.
 class_name Player
 extends CharacterBody2D
 
@@ -14,6 +14,7 @@ const CIRCLE_SEGMENTS: int = 32
 
 @onready var _collision: CollisionShape2D = $CollisionShape2D
 @onready var _body: Polygon2D = $Body
+@onready var _touch_input: TouchInput = $TouchInput
 
 
 func _ready() -> void:
@@ -22,10 +23,18 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	velocity.y += config.gravity * delta
-	velocity.x = 0.0
+	velocity.x = _horizontal_velocity(delta)
 	move_and_slide()
 	if is_on_floor():
 		_bounce()
+
+
+## Converts this frame's input offset into velocity, capped by
+## max_horizontal_speed. No input means no horizontal motion (no inertia).
+func _horizontal_velocity(delta: float) -> float:
+	var max_step: float = config.max_horizontal_speed * delta
+	var dx: float = clampf(_touch_input.consume_dx(delta), -max_step, max_step)
+	return dx / delta
 
 
 func _bounce() -> void:
