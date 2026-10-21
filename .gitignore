@@ -15,3 +15,6 @@
 
 # macOS
 .DS_Store
+
+# Temporary files (e.g. safe-write save.cfg.tmp)
+*.tmp
