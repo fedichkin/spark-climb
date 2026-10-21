@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://2ov3g3nklbx6"]
+
+[node name="HelloSpark" type="Control" unique_id=27360180]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="." unique_id=1875896820]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.09019608, 0.14901961, 1)
+
+[node name="Greeting" type="Label" parent="." unique_id=103332794]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.9137255, 0.65882355, 1)
+theme_override_font_sizes/font_size = 64
+text = "Привіт, Іскра"
+horizontal_alignment = 1
+vertical_alignment = 1
