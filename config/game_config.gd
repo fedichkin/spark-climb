@@ -58,3 +58,8 @@ extends Resource
 @export var start_platform_bottom_offset: float = 120.0
 ## Difficulty steps by height, sorted by min_height_m (GAME_SPEC §10).
 @export var difficulty_tiers: Array[DifficultyTier] = []
+
+@export_group("Feel")
+## Pause after losing before the game reacts to touches (and, from M5,
+## before the game over screen appears), s.
+@export var game_over_delay: float = 0.5

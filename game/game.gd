@@ -1,10 +1,11 @@
 ## Run scene root: owns the run state, tracks the height score and wires
 ## the systems together. READY while the hero bounces on the start platform;
 ## PLAYING from the first landing on a regular platform, which also starts
-## camera auto-scroll. Scroll speed grows with the run's best height.
+## camera auto-scroll; GAME_OVER once the hero falls below the screen.
+## Scroll speed grows with the run's best height.
 extends Node2D
 
-enum RunState { READY, PLAYING }
+enum RunState { READY, PLAYING, GAME_OVER }
 
 @export var config: GameConfig
 
@@ -15,6 +16,8 @@ var _start_y: float = 0.0
 var _max_height_m: float = 0.0
 ## Last whole-meter value sent via Events.height_changed.
 var _reported_meters: int = 0
+## True once game_over_delay has passed after losing.
+var _can_restart: bool = false
 
 @onready var _player: Player = $Player
 @onready var _generator: PlatformGenerator = $PlatformGenerator
@@ -31,10 +34,21 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if _state == RunState.GAME_OVER:
+		return
 	_update_height()
 	if _state == RunState.PLAYING:
 		_camera.scroll_speed = DifficultyCurve.scroll_speed(
 			_max_height_m, config.scroll_base_speed, config.scroll_speed_per_meter, config.scroll_max_speed)
+	if _player.position.y - config.player_radius > _camera.get_bottom_y():
+		_end_run()
+
+
+## Temporary restart by touch; replaced by the game over screen in M5.
+func _unhandled_input(event: InputEvent) -> void:
+	var touch: InputEventScreenTouch = event as InputEventScreenTouch
+	if _can_restart and touch != null and touch.pressed:
+		get_tree().reload_current_scene()
 
 
 func _on_player_landed(platform: Platform, _quality: LandingMath.Quality) -> void:
@@ -46,6 +60,16 @@ func _start_run() -> void:
 	_state = RunState.PLAYING
 	_camera.start_scroll()
 	Events.run_started.emit()
+
+
+func _end_run() -> void:
+	_state = RunState.GAME_OVER
+	_camera.stop_scroll()
+	_player.process_mode = Node.PROCESS_MODE_DISABLED
+	Events.run_ended.emit({"height": _reported_meters})
+	print("Game over at %d m. Tap to restart." % _reported_meters)
+	await get_tree().create_timer(config.game_over_delay).timeout
+	_can_restart = true
 
 
 ## Keeps the best height of the run and reports each new whole meter.

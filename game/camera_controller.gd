@@ -29,6 +29,11 @@ func start_scroll() -> void:
 	_scrolling = true
 
 
+## Freezes auto-scroll, e.g. after the run has ended.
+func stop_scroll() -> void:
+	_scrolling = false
+
+
 func is_scrolling() -> bool:
 	return _scrolling
 

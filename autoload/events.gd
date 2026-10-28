@@ -12,3 +12,7 @@ signal player_landed(platform: Platform, quality: LandingMath.Quality)
 ## The run's best height grew to a new whole number of meters.
 @warning_ignore("unused_signal")
 signal height_changed(meters: int)
+## The hero fell below the screen. `stats` has key `height` (meters);
+## `best_combo`, `perfect_count` (M4) and `is_new_record` (M5) come later.
+@warning_ignore("unused_signal")
+signal run_ended(stats: Dictionary)
