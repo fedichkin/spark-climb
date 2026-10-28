@@ -1,6 +1,29 @@
 [gd_resource type="Resource" script_class="GameConfig" format=3 uid="uid://c1cgxidisq2dj"]
 
 [ext_resource type="Script" uid="uid://lva6liotq5s8" path="res://config/game_config.gd" id="1_config"]
+[ext_resource type="Script" uid="uid://b4yvt5o4jnbmq" path="res://config/difficulty_tier.gd" id="2_tier"]
+
+[sub_resource type="Resource" id="Resource_tier1"]
+script = ExtResource("2_tier")
+
+[sub_resource type="Resource" id="Resource_tier2"]
+script = ExtResource("2_tier")
+min_height_m = 30.0
+gap_min = 110.0
+gap_max = 220.0
+
+[sub_resource type="Resource" id="Resource_tier3"]
+script = ExtResource("2_tier")
+min_height_m = 100.0
+gap_min = 130.0
+gap_max = 280.0
+
+[sub_resource type="Resource" id="Resource_tier4"]
+script = ExtResource("2_tier")
+min_height_m = 200.0
+gap_min = 150.0
+gap_max = 300.0
 
 [resource]
 script = ExtResource("1_config")
+difficulty_tiers = Array[ExtResource("2_tier")]([SubResource("Resource_tier1"), SubResource("Resource_tier2"), SubResource("Resource_tier3"), SubResource("Resource_tier4")])

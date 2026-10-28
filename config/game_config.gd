@@ -33,3 +33,15 @@ extends Resource
 @export_group("Landing")
 ## Share of platform width (centered) that counts as a PERFECT landing.
 @export_range(0.0, 1.0) var perfect_zone_ratio: float = 0.35
+
+@export_group("Camera")
+## Auto-scroll speed right after it starts, px/s.
+@export var scroll_base_speed: float = 35.0
+## Auto-scroll speed gained per meter of height, px/s.
+@export var scroll_speed_per_meter: float = 0.8
+## Auto-scroll speed cap (reached at ≈ 156 m), px/s.
+@export var scroll_max_speed: float = 160.0
+
+@export_group("Generation")
+## Difficulty steps by height, sorted by min_height_m (GAME_SPEC §10).
+@export var difficulty_tiers: Array[DifficultyTier] = []
