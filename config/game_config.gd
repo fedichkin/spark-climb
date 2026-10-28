@@ -35,6 +35,9 @@ extends Resource
 @export_range(0.0, 1.0) var perfect_zone_ratio: float = 0.35
 
 @export_group("Camera")
+## Follow line as a share of screen height from the top: the camera rises
+## whenever the hero is above it.
+@export_range(0.0, 1.0) var camera_follow_ratio: float = 0.4
 ## Auto-scroll speed right after it starts, px/s.
 @export var scroll_base_speed: float = 35.0
 ## Auto-scroll speed gained per meter of height, px/s.

@@ -35,6 +35,8 @@ static_platform_scene = ExtResource("4_static")
 
 [node name="Player" parent="." instance=ExtResource("5_player")]
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 anchor_mode = 0
 script = ExtResource("6_camera")
+config = ExtResource("2_config")
+target = NodePath("../Player")
