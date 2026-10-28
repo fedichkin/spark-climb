@@ -27,7 +27,8 @@ spark-climb/
 ├── .gitignore
 ├── config/
 │   ├── game_config.gd            # class_name GameConfig extends Resource
-│   └── game_config.tres          # значення параметрів (з GAME_SPEC §13)
+│   ├── game_config.tres          # значення параметрів (з GAME_SPEC §13)
+│   └── difficulty_tier.gd        # class_name DifficultyTier extends Resource — один рівень складності
 ├── autoload/
 │   ├── events.gd                 # шина сигналів (autoload «Events»)
 │   └── save_manager.gd           # рекорди у user://save.cfg (autoload «SaveManager»)
@@ -147,7 +148,7 @@ func counts_for_combo() -> bool:
 | Сигнал | Хто емітить | Хто слухає |
 |---|---|---|
 | `run_started()` | Game | HUD |
-| `player_landed(platform: Platform, quality: int)` | Player | Game → ComboTracker, FloatingText, вібрація |
+| `player_landed(platform: Platform, quality: LandingMath.Quality)` | Player (власного локального сигналу приземлення в Player немає) | Game → ComboTracker, FloatingText, вібрація |
 | `combo_changed(combo: int)` | Game (з ComboTracker) | PlayerLight, HUD |
 | `perfect_landed()` | Game | PlayerLight (пульс), FloatingText |
 | `height_changed(meters: int)` | Game | HUD |
@@ -197,7 +198,7 @@ sequenceDiagram
 
 ## 10. Конфігурація
 
-`GameConfig` — `Resource` з полями, згрупованими через `@export_group` (Герой, Керування, Плитки, Комбо, Світло, Камера, Генерація, Відчуття). Таблиця рівнів складності — масив словників або окремих Resource `DifficultyTier`. Сцени отримують конфіг через `@export var config: GameConfig`, куди в редакторі підставлено `config/game_config.tres`. Чисті класи з `logic/` отримують потрібні значення параметрами, а не читають конфіг самі.
+`GameConfig` — `Resource` з полями, згрупованими через `@export_group` (Герой, Керування, Плитки, Комбо, Світло, Камера, Генерація, Відчуття). Таблиця рівнів складності — масив `difficulty_tiers: Array[DifficultyTier]` (окремий Resource `config/difficulty_tier.gd`), відсортований за `min_height_m`; рівні редагуються в інспекторі як вкладені ресурси `game_config.tres`. Сцени отримують конфіг через `@export var config: GameConfig`, куди в редакторі підставлено `config/game_config.tres`. Чисті класи з `logic/` отримують потрібні значення параметрами, а не читають конфіг самі.
 
 ## 10a. Збереження прогресу
 
