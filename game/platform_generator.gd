@@ -44,12 +44,8 @@ func _process(_delta: float) -> void:
 func _spawn_ahead() -> void:
 	var screen_height: float = get_viewport().get_visible_rect().size.y
 	var spawn_limit_y: float = camera.get_top_y() - config.spawn_ahead_screens * screen_height
-	var spawned: int = 0
 	while _last_y > spawn_limit_y:
 		_spawn_next()
-		spawned += 1
-	if spawned > 0:
-		print("Spawned %d platforms, alive: %d" % [spawned, platforms_root.get_child_count()])
 
 
 func _spawn_next() -> void:
