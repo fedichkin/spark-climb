@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://yphdmrg2ohjp" path="res://platforms/static_platform.tscn" id="4_static"]
 [ext_resource type="PackedScene" uid="uid://mkg0vx0q61u2" path="res://player/player.tscn" id="5_player"]
 [ext_resource type="Script" path="res://game/camera_controller.gd" id="6_camera"]
+[ext_resource type="PackedScene" path="res://platforms/start_platform.tscn" id="7_start"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_game")
@@ -24,13 +25,12 @@ color = Color(0.101960786, 0.09019608, 0.14901961, 1)
 
 [node name="Platforms" type="Node2D" parent="."]
 
-[node name="Floor" parent="Platforms" instance=ExtResource("4_static")]
-
 [node name="PlatformGenerator" type="Node" parent="." node_paths=PackedStringArray("camera", "platforms_root")]
 script = ExtResource("3_generator")
 config = ExtResource("2_config")
 camera = NodePath("../Camera")
 platforms_root = NodePath("../Platforms")
+start_platform_scene = ExtResource("7_start")
 static_platform_scene = ExtResource("4_static")
 
 [node name="Player" parent="." instance=ExtResource("5_player")]

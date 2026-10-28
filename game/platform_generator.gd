@@ -8,22 +8,30 @@ extends Node
 @export var camera: CameraController
 ## Parent node for spawned platforms.
 @export var platforms_root: Node2D
+@export var start_platform_scene: PackedScene
 @export var static_platform_scene: PackedScene
 
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
-## World Y where height is 0 m.
+## World Y of the start platform, used as 0 m for difficulty tiers.
 var _start_y: float = 0.0
 ## World Y of the most recently spawned platform.
 var _last_y: float = 0.0
 var _running: bool = false
 
 
-## Starts generation above `start_y`. The same seed gives the same tower.
-func start(start_y: float, seed_value: int) -> void:
+## Spawns the full-width start platform near the camera bottom and starts
+## generation above it. The same seed gives the same tower.
+func start(seed_value: int) -> Platform:
 	_rng.seed = seed_value
-	_start_y = start_y
-	_last_y = start_y
+	var screen_width: float = get_viewport().get_visible_rect().size.x
+	_start_y = camera.get_bottom_y() - config.start_platform_bottom_offset
+	_last_y = _start_y
+	var platform: Platform = start_platform_scene.instantiate() as Platform
+	platform.setup(screen_width)
+	platform.position = Vector2(screen_width / 2.0, _start_y)
+	platforms_root.add_child(platform)
 	_running = true
+	return platform
 
 
 func _process(_delta: float) -> void:
