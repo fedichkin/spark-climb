@@ -1,12 +1,9 @@
 ## The hero: applies gravity, bounces automatically on every landing on a
-## Platform and reports the landing quality via the `landed` signal.
+## Platform and reports the landing quality via Events.player_landed.
 ## Horizontal offset comes from the TouchInput child node; the hero wraps
 ## around the screen edges when config.screen_wrap is on.
 class_name Player
 extends CharacterBody2D
-
-## Emitted right after the bounce velocity has been applied.
-signal landed(platform: Platform, quality: LandingMath.Quality)
 
 ## Number of vertices used to draw the hero circle.
 const CIRCLE_SEGMENTS: int = 32
@@ -54,7 +51,7 @@ func _bounce() -> void:
 	velocity.y = -config.jump_velocity * platform.get_jump_multiplier()
 	var quality: LandingMath.Quality = LandingMath.evaluate(
 		global_position.x, platform.global_position.x, platform.width, config.perfect_zone_ratio)
-	landed.emit(platform, quality)
+	Events.player_landed.emit(platform, quality)
 
 
 ## Builds the collision circle and its visual from config.player_radius.

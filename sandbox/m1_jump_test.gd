@@ -11,7 +11,7 @@ func _ready() -> void:
 	var screen_width: float = get_viewport().get_visible_rect().size.x
 	_floor.position.x = screen_width / 2.0
 	_floor.setup(screen_width)
-	_player.landed.connect(_on_player_landed)
+	Events.player_landed.connect(_on_player_landed)
 
 
 func _on_player_landed(platform: Platform, quality: LandingMath.Quality) -> void:
